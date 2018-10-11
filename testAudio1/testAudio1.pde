@@ -14,7 +14,7 @@ AudioInput input; //Declara input, entrada de micro
 FFT fft; //Declara fft
 
 void setup(){
-  size(512, 320); //ancho del canvas a 512 para coincidir cada posicion en ejeX a una muestra (sample) del sonido
+  size(256, 320); //ancho del canvas a 512 para coincidir cada posicion en ejeX a una muestra (sample) del sonido
   noCursor(); //sin cursor en el canvas
   minim = new Minim(this); //Inicia minim
   input = minim.getLineIn(); //Inicia el micro
@@ -29,7 +29,7 @@ void draw(){
   noStroke(); //elipse sin trazo
   fft.forward(input.mix);//perform a forward FFT on the samples in input's mix buffer, which contains the mix of both the left and right channels of the file
   for(int i = 0; i < fft.specSize(); i++){ //specSize = 512 un for para itinerar por todas las muestras
-    ellipse(i,200,7,fft.getBand(i)); //getBand() Devuelve la amplitud de la banda de la muestra solicitada y la multiplica por 10 para escalarla un poco
+    rect(i,200,7,fft.getBand(i)*-4); //getBand() Devuelve la amplitud de la banda de la muestra solicitada y la multiplica por 10 para escalarla un poco
   }
   println(fft.getBand(25));
 }
